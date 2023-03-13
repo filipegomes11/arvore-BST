@@ -1,31 +1,27 @@
-
-
 #include <stdio.h>
 #include "bst.h"
-
-
-
-arvore *inserir (arvore * raiz, int newValor)
+#include<string.h>
+arvoreBST *inserirBST (arvoreBST * raiz, int newmodelo)
 {
 
   if (raiz == NULL)
     {
-      arvore *no = (arvore *) malloc (sizeof (arvore));
-      no->valor = newValor;
+      arvoreBST *no = (arvoreBST *) malloc (sizeof (arvoreBST));
+      no->modelo = newmodelo;
       no->dir = NULL;
       no->esq = NULL;
       return no;
     }
   else
     {
-      if (newValor > raiz->valor)
+      if (strcmp(newmodelo , raiz->modelo) > 0) 
 	{
-	  raiz->dir = inserir (raiz->dir, newValor);
+	  raiz->dir = inserirBST (raiz->dir, newmodelo);
 
 	}
       else
 	{
-	  raiz->esq = inserir (raiz->esq, newValor);
+	  raiz->esq = inserirBST (raiz->esq, newmodelo);
 	}
       return raiz;
     }
@@ -34,43 +30,43 @@ arvore *inserir (arvore * raiz, int newValor)
 }
 
 
-arvore *preorder (arvore * raiz)
+arvoreBST *preorderBST (arvoreBST * raiz)
 {
 
   if (raiz != NULL)
     {
-      printf ("%d ", raiz->valor);
+      printf ("%d ", raiz->modelo);
       preorder (raiz->esq);
       preorder (raiz->dir);
     }
 }
 
-arvore *inorder (arvore * raiz)
+arvoreBST *inorderBST (arvoreBST * raiz)
 {
 
   if (raiz != NULL)
     {
       inorder (raiz->esq);
-      printf ("%d ", raiz->valor);
+      printf ("%d ", raiz->modelo);
       inorder (raiz->dir);
     }
 
 }
 
 
-arvore *posorder (arvore * raiz)
+arvoreBST *posorderBST (arvoreBST * raiz)
 {
 
   if (raiz != NULL)
     {
-      posorder (raiz->esq);
-      posorder (raiz->dir);
-      printf ("%d ", raiz->valor);
+      posorderBST (raiz->esq);
+      posorderBST (raiz->dir);
+      printf ("%d ", raiz->modelo);
     }
 }
 
 
-arvore *maiorElemento (arvore * raiz)
+arvoreBST *maiorElementoBST (arvoreBST * raiz)
 {
   if (raiz == NULL)
     {
@@ -82,11 +78,11 @@ arvore *maiorElemento (arvore * raiz)
       return raiz;
     }
 
-  return maiorElemento (raiz->dir);
+  return maiorElementoBST (raiz->dir);
 }
 
 
-arvore *remover (arvore * raiz, int valor)
+arvoreBST *removerBST (arvoreBST * raiz, int modelo)
 {
 
   if (raiz == NULL)
@@ -94,7 +90,7 @@ arvore *remover (arvore * raiz, int valor)
       return raiz;
     }
 
-  if (valor == raiz->valor)
+  if (strcmp(modelo,raiz->modelo)==0)
     {
       if (raiz->dir == NULL && raiz->esq == NULL)
 	{
@@ -103,30 +99,30 @@ arvore *remover (arvore * raiz, int valor)
 	}
       if (raiz->dir == NULL && raiz->esq != NULL)
 	{
-	  arvore *aux = raiz->esq;
+	  arvoreBST *aux = raiz->esq;
 	  free (raiz);
 	  return aux;
 	}
       if (raiz->esq == NULL && raiz->dir != NULL)
 	{
-	  arvore *aux = raiz->dir;
+	  arvoreBST *aux = raiz->dir;
 	  free (raiz);
 	  return aux;
 	}
-      raiz->valor = maiorElemento (raiz->esq)->valor;
-      raiz->esq = remover (raiz->esq, raiz->valor);
+      strcpy(raiz->modelo, maiorElementoBST (raiz->esq)->modelo);
+      raiz->esq = removerBST (raiz->esq, raiz->modelo);
 
 
     }
 
-  if (valor > raiz->valor)
+  if (strcmp(modelo , raiz->modelo) > 0)
     {
-      raiz->dir = remover (raiz->dir, valor);
+      raiz->dir = removerBST (raiz->dir, modelo);
     }
 
-  if (valor < raiz->valor)
+  if (strcmp(modelo , raiz->modelo) < 0)
     {
-      raiz->esq = remover (raiz->esq, valor);
+      raiz->esq = removerBST (raiz->esq, modelo);
     }
 
   return raiz;

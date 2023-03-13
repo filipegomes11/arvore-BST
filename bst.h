@@ -3,24 +3,27 @@
 #include <stdlib.h>
 
 
+
+
 typedef struct no
 {
-  int valor;
+  char * modelo;
   struct no *esq;
   struct no *dir;
-} arvore;
+  int indice;
+} arvoreBST;
 
 
-arvore *inserir (arvore * raiz, int newValor);
+arvoreBST *inserirBST (arvoreBST * raiz, int newValor);
 
-arvore *preorder (arvore * raiz);
+arvoreBST *preorderBST (arvoreBST * raiz);
 
-arvore *inorder (arvore * raiz);
+arvoreBST *inorderBST  (arvoreBST * raiz);
 
-arvore *posorder (arvore * raiz);
+arvoreBST *posorderBST (arvoreBST * raiz);
 
-arvore *maiorElemento (arvore * raiz);
+arvoreBST *maiorElementoBST (arvoreBST * raiz);
 
-arvore *remover (arvore * raiz, int valor);
+arvoreBST *removerBST (arvoreBST * raiz, int valor);
 
 #endif
